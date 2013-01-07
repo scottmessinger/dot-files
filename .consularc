@@ -1,6 +1,6 @@
 # You can require your additional core gems here.
 # require 'some_core_gem'
-require 'consular/osx'
+#require 'consular/osx'
 require 'consular/iterm'
 
 # You can set specific Consular configurations

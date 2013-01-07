@@ -11,6 +11,14 @@ syntax enable                     " Turn on syntax highlighting.
 set nocompatible                  " Must come first because it changes other options.
 
 
+
+ set rtp+=~/.vim/bundle/vundle/
+ call vundle#rc()
+
+ " let Vundle manage Vundle
+ " required! 
+ Bundle 'gmarik/vundle'
+
 set autoindent
 set copyindent    " copy the previous indentation on autoindenting
 
@@ -153,7 +161,6 @@ imap jj <Esc>l
 
 " nnoremap / /\v
 " vnoremap / /\v
-set ignorecase
 set smartcase
 set gdefault
 set incsearch
@@ -209,4 +216,36 @@ let $SWEET_VIM_RSPEC_SHOW_PASSING="true"
 map <M-D-r> :SweetVimRspecRunFocused<CR>
 
 
+" show syntax under cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+
+" tabular
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+
+" auto align
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+ 
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+
+
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.scssc,*.swo,*.log
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'

@@ -5,7 +5,7 @@ set guifont=Monaco:h10          " Font family and font size.
 set antialias                     " MacVim: smooth fonts.
 set encoding=utf-8                " Use UTF-8 everywhere.
 set guioptions-=T                 " Hide toolbar.
-set background=light              " Background.
+set background=dark               " Background.
 set lines=70 columns=200          " Window dimensions.
 
 set guioptions-=r                 " Don't show right scrollbar
@@ -75,7 +75,7 @@ endif
 colorscheme railscasts2
 
 "let g:solarized_termcolors=256
-"set t_Co=16
+set t_Co=256
 "set background=dark
 "colorscheme solarized
 
