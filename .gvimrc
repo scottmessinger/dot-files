@@ -1,7 +1,11 @@
 " Example Vim graphical configuration.
 " Copy to ~/.gvimrc or ~/_gvimrc.
 
-set guifont=Monaco:h10          " Font family and font size.
+" set guifont=Source\ Code\ Pro\ for\ Powerline:h12          " Font family and font size.
+" set guifont=Monaco\ for\ Powerline:h12          " Font family and font size.
+set guifont=Inconsolata\ for\ Powerline:h12          " Font family and font size.
+
+
 set antialias                     " MacVim: smooth fonts.
 set encoding=utf-8                " Use UTF-8 everywhere.
 set guioptions-=T                 " Hide toolbar.
@@ -27,8 +31,8 @@ let g:CommandTMatchWindowAtTop = 1
 " double percentage sign in command mode is expanded
 " to directory of current file - http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
- 
-" 
+
+"
 " Map command t to command-t
 if has("gui_macvim")
   macmenu &File.New\ Tab key=<nop>
@@ -85,3 +89,9 @@ macmenu &File.Save key=<nop>
 let g:solarized_contrast="normal"
 let g:solarized_visibility="high"
 
+if has("gui_running")
+  if has("autocmd")
+    " Automatically resize splits when resizing MacVim window
+    autocmd VimResized * wincmd =
+  endif
+endif
